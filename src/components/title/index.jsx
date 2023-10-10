@@ -1,10 +1,7 @@
-import titleStyle from './title.module.css'
+import titleStyle from "./title.module.css";
 
+const Title = ({ children }) => {
+  return <div className={titleStyle.label}>{children}</div>;
+};
 
-const Title = ( { children } ) => {
-	return (
-		<div className={titleStyle.label}>{children}</div>
-	)
-}
-
-export default Title
+export default Title;

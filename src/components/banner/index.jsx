@@ -1,10 +1,12 @@
-import bannerStyle from './banner.module.css'
-
+import bannerStyle from "./banner.module.css";
 
 const Banner = ({ img }) => {
-	return (
-		<div className={bannerStyle.cover} style={{ backgroundImage: `url('/img/banner-${img}.png')` }}></div>
-	)
-}
+  return (
+    <div
+      className={bannerStyle.cover}
+      style={{ backgroundImage: `url('/img/banner-${img}.png')` }}
+    ></div>
+  );
+};
 
-export default Banner
+export default Banner;
