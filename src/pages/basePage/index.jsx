@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "components/header";
 import FavoritesProvider from "contexts/favoritesProvider";
+import VideosProvider from "contexts/videosProvider";
 import Container from "components/container";
 import Footer from "components/footer";
 
@@ -9,9 +10,11 @@ const BasePage = () => {
     <main>
       <Header />
       <FavoritesProvider>
-        <Container>
-          <Outlet />
-        </Container>
+        <VideosProvider>
+          <Container>
+            <Outlet />
+          </Container>
+        </VideosProvider>
       </FavoritesProvider>
       <Footer />
     </main>

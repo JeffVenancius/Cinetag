@@ -1,16 +1,15 @@
-import { useFavoriteContext } from "contexts/favoritesProvider";
-
 import { Link } from "react-router-dom";
-import { memo } from "react";
+import { memo, useState } from "react";
+
+import { useFavoriteContext } from "contexts/favoritesProvider";
 
 import cardStyle from "./card.module.css";
 import favoriteImg from "./favorite.png";
 import unfavoriteImg from "./unfavorite.png";
 
-const Card = ({ title, cover, id, link }) => {
+const Card = ({ title, cover, id }) => {
   const { favorites, updateFav } = useFavoriteContext();
-  const favsIds = favorites.map((fav) => fav.id);
-
+  const [Favorite, setFavorite] = useState(favorites.current.includes(id));
   return (
     <div className={cardStyle.container}>
       <Link className={cardStyle.link} to={`/videos/${id}`}>
@@ -18,10 +17,13 @@ const Card = ({ title, cover, id, link }) => {
         <h2>{title}</h2>
       </Link>
       <img
-        src={favsIds.includes(id) ? unfavoriteImg : favoriteImg}
+        src={Favorite ? unfavoriteImg : favoriteImg}
         alt="Favoritar filme"
         className={cardStyle.favorite}
-        onClick={() => updateFav({ title, cover, id, link })}
+        onClick={() => {
+          setFavorite(!Favorite);
+          updateFav(id);
+        }}
       />
     </div>
   );

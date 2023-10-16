@@ -1,23 +1,28 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import playerStyle from "./player.module.css";
+
+import { useVideosContext } from "contexts/videosProvider";
 
 import NotFound from "pages/notFound";
 import Banner from "components/banner";
 import Title from "components/title";
 
 const Player = () => {
-  const [video, setVideo] = useState({ link: "await for video" });
-  const params = useParams();
+  const videos = useVideosContext();
+  const id = Number(useParams().id);
+  let title = "";
+  let link = "await for video";
 
-  useEffect(() => {
-    fetch(
-      `https://my-json-server.typicode.com/JeffVenancius/cinetag-api/videos?id=${params.id}`
-    )
-      .then((res) => res.json())
-      .then((data) => setVideo(...data));
-  }, []);
+  for (let i = 0; i < videos.length; i++) {
+    if (videos[i].id === id) {
+      title = videos[i].title;
+      link = videos[i].link;
+      break;
+    }
+    if (i === videos.length) link = "not found";
+  }
 
-  if (video.link === "await for video") {
+  if (link === "await for video") {
     return (
       <>
         <Banner img="player" />
@@ -26,7 +31,7 @@ const Player = () => {
         </Title>
       </>
     );
-  } else if (!video.link) {
+  } else if (link === "not found") {
     return (
       <>
         <Banner img="player" />
@@ -39,16 +44,16 @@ const Player = () => {
     <>
       <Banner img="player" />
       <Title>
-        <h1>{video.title}</h1>
+        <h1>{title}</h1>
       </Title>
       <section>
         <iframe
-          width="100%"
-          height="100%"
-          src={video.link}
-          title={video.title}
+          style={playerStyle.videoframe}
+          src={link}
+          title={title}
+          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
+          allowfullscreen
         ></iframe>
       </section>
     </>

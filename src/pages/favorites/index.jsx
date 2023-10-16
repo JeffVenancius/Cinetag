@@ -1,4 +1,5 @@
 import { useFavoriteContext } from "contexts/favoritesProvider";
+import { useVideosContext } from "contexts/videosProvider";
 
 import Banner from "components/banner";
 import Title from "components/title";
@@ -8,6 +9,11 @@ import homeStyle from "pages/home/home.module.css";
 
 const Favorites = () => {
   const { favorites } = useFavoriteContext();
+  const videos = useVideosContext();
+
+  let cardsToRender = videos.filter((video) =>
+    favorites.current.includes(video.id)
+  );
 
   return (
     <>
@@ -16,7 +22,7 @@ const Favorites = () => {
         <h1>Meus Favoritos</h1>
       </Title>
       <section className={homeStyle.container}>
-        {favorites.map((fav) => {
+        {cardsToRender.map((fav) => {
           return (
             <Card
               id={fav.id}

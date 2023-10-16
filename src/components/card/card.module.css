@@ -16,12 +16,13 @@
 	padding: 0 1em;
 }
 
-.favorite {
-	width: 25px;
-}
-
 .link {
 	text-decoration: none;
 	color: var(--fgColor);
 	text-align: left;
 }
+
+.favorite {
+	width: 25px;
+}
+
